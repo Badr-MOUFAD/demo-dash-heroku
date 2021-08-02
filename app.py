@@ -4,7 +4,6 @@ import dash_html_components as html
 import plotly.express as px
 import plotly.io as pio
 import pandas as pd
-import os
 
 
 # template of plots
@@ -17,17 +16,7 @@ server = app.server
 
 
 # load data
-dir_name = "data"
-morocco_clusters = pd.DataFrame(columns=["lat", "lon", "city_name", "year"," cluster"])
-
-for filename in os.listdir(dir_name):
-    path = os.path.join(dir_name, filename)
-    morocco_clusters = morocco_clusters.append(pd.read_csv(path), ignore_index=True)
-
-# process data
-morocco_clusters = morocco_clusters.dropna(axis=1)
-morocco_clusters = morocco_clusters.sort_values(by=["year"])
-
+morocco_clusters = pd.read_csv("data.csv")
 
 # construct graph
 fig = px.scatter_geo(
